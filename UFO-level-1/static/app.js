@@ -7,19 +7,14 @@ let button = d3.select("#filter-btn"),
     form = d3.select("#datetime");
 
 
-    // Need to append all the rows of sightings dataset
-// list.append("li").text("datetime");
-// list.append("li").text("city");
-// list.append("li").text("state");
-// list.append("li").text("country");
-// list.append("li").text("shape");
-// list.append("li").text("durationMinutes");
-// list.append("li").text("comments");
-
-// const sighting = [["datetime", datetime], ["city", city], ["state", state], 
-// ["country", country], ["shape", shape], ["durationMinutes", durationMinutes], ["comments", comments]];
-// sightings.forEach(sightings => list.append("li").text(`${sightings[0]}: ${sightings[6]}`));
-// sightings.forEach(([type, value]) => list.append("li").text(`${type}: ${value}`));
+// Need to append all the rows of sightings dataset
+const tbody = d3.select("tbody");
+sightings.forEach(sighting => {
+    let row = tbody.append("tr");
+    Object.values(sighting).forEach(value => {
+    let cell = row.append("td");
+    cell.text(value);})
+})
 
 function filterTable(date) {
     let filteredData = sightings.filter(sighting => sighting.datetime === date)
@@ -45,20 +40,16 @@ const runEnter = () => {
 
     // Use d3 to update each cell's text with UFO report values (datetime, city, state, country, shape, durationMinutes, comments)
     let filterResults = filterTable(inputValue)
-    console.log(filterResults);
     filterResults.forEach(sighting => {
     let row = tbody.append("tr");
     Object.values(sighting).forEach(value => {
     // Append a cell to the row for each value in the UFO report object
-    var cell = row.append("td");
+    let cell = row.append("td");
     cell.text(value);
     });
-
 });
 
 console.log(inputValue);
-
-
 };
 
 // Create event handlers
